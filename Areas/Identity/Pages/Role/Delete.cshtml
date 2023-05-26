@@ -1,0 +1,48 @@
+﻿@page "/admin/role/delete/{roleID}"
+@model ProjectShopIdentity.Areas.Identity.Pages.Role.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>@ViewData["Title"]</h1>
+<partial name="_StatusMessage" model="@Model.StatusMessage"> </partial>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" id="deleteForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label class="control-label">@Model.role.Name</label>
+
+            </div>
+
+            <div class="form-group mt-2">
+                <input type="submit" value="Delete" class="btn btn-primary" />
+                <a class="btn btn-info" asp-page="./Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.getElementById("deleteForm").addEventListener("submit", function(even){
+            even.preventDefault();
+            var cfm = confirm("Ban co chac chan xoa khong");
+            if(cfm){
+                this.submit();
+            }
+        });
+    </script>
+
+}
+

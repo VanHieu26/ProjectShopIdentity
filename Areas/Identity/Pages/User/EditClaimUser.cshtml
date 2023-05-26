@@ -1,0 +1,33 @@
+﻿@page "/admin/edit-claimuser/{claimID}"
+@model ProjectShopIdentity.Areas.Identity.Pages.User.EditClaimUserModel
+<h3>@ViewData["Title"] : @Model.user.UserName</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="inputModel.ClaimType" class="control-label"></label>
+                <input asp-for="inputModel.ClaimType" class="form-control" />
+                <span asp-validation-for="inputModel.ClaimType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="inputModel.ClaimValue" class="control-label"></label>
+                <input asp-for="inputModel.ClaimValue" class="form-control" />
+                <span asp-validation-for="inputModel.ClaimValue" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+
+
+                <input type="submit" value="Edit" class="btn btn-primary" />
+
+                <input type="submit" asp-page-handler="Delete" asp-route-claimID="@Model.userclaim.Id" value="Delete" class="btn btn-danger" />
+
+                <a class="btn btn-info" asp-page="./AddRole" asp-route-userID="@Model.user.Id">Edit user</a>
+            </div>
+        </form>
+    </div>
+</div>
+

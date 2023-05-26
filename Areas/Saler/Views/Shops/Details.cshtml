@@ -1,0 +1,58 @@
+﻿@model ProjectShopIdentity.Areas.Saler.Data.Shop
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Shop</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AppUser)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AppUser.UserName)
+        </dd>
+    </dl>
+</div>
+<p>Product In Shhop</p>
+<a asp-action="ShopAddProduct" asp-controller="Shops" asp-area="Saler" asp-route-id="@Model.Id">Create product</a>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Product Name
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.Shop_Products)
+        {
+            <tr>
+                <td>
+                    @item.Products.Name
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,104 @@
+﻿@page "/admin/user/addrole/{id}"
+@model ProjectShopIdentity.Areas.Identity.Pages.User.AddRoleModel
+@{
+    ViewData["Title"] = "Set Role";
+    ViewData["SetRoleCss"] = "~/css/setrolecss.css";
+
+}
+
+<h3>Thiet lap mat khau cho thanh vien @Model.user.UserName</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+@{
+
+}
+<div class="row">
+    <div class="col-md-6">
+        <form id="set-password-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <label asp-for="RoleName" class="form-label"></label>
+                <br />
+                <br />
+                @Html.ListBoxFor(m => m.RoleName,Model.allRole , new {
+
+                id = "id-select-role",
+
+
+
+
+                })
+                @*<select id="id-select-role" name="RoleName" multiple>
+                @foreach (var role in Model.allRole)
+                {
+                <option value="@role">@role.Text</option>
+                }
+                </select>
+                @*                <select asp-for="RoleName" class="form-select">
+                @foreach(var role in Model.allRole)
+                {
+                <option>@role.Text</option>
+                }
+                </select>*@
+
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+
+            <div>
+                <button type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
+
+            </div>
+        </form>
+        <hr />
+        <p>
+            Cac claims cua user tu Roles
+
+        </p>
+        @if (Model.claimInRole.Count > 0)
+        {
+            <ul>
+                @foreach (var claim in Model.claimInRole)
+                {
+                    <li>@claim.ClaimType : @claim.ClaimValue</li>
+                }
+            </ul>
+        }
+
+        <p>
+            Cac claims rieng cua user
+            <a asp-page="./EditUserRoleClaim" asp-page-handler="AddClaim" asp-route-userID="@Model.user.Id">Them claim rieng</a>
+        </p>
+        @if (Model.claimInUserCl.Count > 0)
+        {
+            <ul>
+                @foreach (var claim in Model.claimInUserCl)
+                {
+                    <li>
+                        <a asp-page="./EditClaimUser"
+                   asp-page-handler="EditClaim"
+                   asp-route-claimID="@claim.Id">
+                            @claim.ClaimType : @claim.ClaimValue
+                        </a>
+
+
+                    </li>
+                }
+            </ul>
+        }
+        <a asp-page="./Index" class="btn btn-success">Danh Sach Thanh Vien</a>
+    </div>
+</div>
+
+@*@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#id-select-role').attr('multiple');
+        });
+       VirtualSelect.init({
+            ele: '#id-select-role',
+            multiple: true
+       })
+
+    </script>
+}
+*@

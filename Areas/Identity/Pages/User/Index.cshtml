@@ -1,0 +1,83 @@
+﻿@page "/admin/user"
+@model ProjectShopIdentity.Areas.Identity.Pages.User.IndexModel
+<h1>@ViewData["Title"]</h1>
+<partial name="_StatusMessage" model="@Model.StatusMessage"> </partial>
+<p>Tong so user @Model.totalUser</p>
+
+<div class="mb-2">
+    <a class="btn btn-secondary" asp-page="./create">Create</a>
+    <a class="btn btn-secondary" asp-page="../Role/index">Role</a>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Ten User</th>
+        <th>Vai tro role</th>
+        <th>Tac Vu</th>
+    </tr>
+    @foreach (var us in Model.user)
+    {
+        <tr>
+            <td>@us.UserName</td>
+            <td>
+                @if (string.IsNullOrEmpty(us.RoleName))
+                {
+                    <a class=" btn btn-success btn-sm" asp-page="./AddRole" asp-route-id="@us.Id">Add Role</a>
+                }
+                else
+                {
+                    <a class="text-dark" asp-page="./AddRole" asp-route-id="@us.Id">@us.RoleName</a>
+                }
+
+
+            </td>
+            <td>
+
+                <a class="btn btn-primary btn-sm" asp-page="./Details">Thong tin</a>
+                <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-id="@us.Id">Xoas</a>
+                <a class="btn btn-danger btn-sm" asp-page="./SetPassword" asp-route-id="@us.Id">Set Password</a>
+            </td>
+
+        </tr>
+
+    }
+</table>
+
+<div>
+    @if (Model.currentPage > 1)
+    {
+        <a href="?p=@(Model.currentPage - 1)" class="btn btn-primary">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+            </svg>
+        </a>
+    }
+
+    @for (int i = 1; i <= Model.countPages; i++)
+    {
+        if (i == Model.currentPage)
+        {
+            <a href="?p=@i" class="btn btn-primary active">@i</a>
+        }
+        else if (i >= Model.currentPage - 1 && i <= Model.currentPage + 1)
+        {
+            <a href="?p=@i" class="btn btn-primary">@i</a>
+        }
+    }
+
+    @if (Model.currentPage < Model.countPages)
+    {
+        <a href="?p=@(Model.currentPage + 1)" class="btn btn-primary">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+            </svg>
+
+
+
+        </a>
+    }
+</div>
+
+

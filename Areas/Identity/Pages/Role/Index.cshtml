@@ -1,0 +1,42 @@
+﻿@page "/admin/role"
+@model ProjectShopIdentity.Areas.Identity.Pages.Role.IndexModel
+@{
+    ViewData["Title"] = "Danh sach Role";
+}
+
+<h1>@ViewData["Title"]</h1>
+<partial name="_StatusMessage" model="@Model.StatusMessage"> </partial>
+
+
+<div class="mb-2">
+    <a class="btn btn-secondary" asp-page="./create">Create</a>
+    <a class="btn btn-secondary" asp-page="../User/index">User</a>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Ten Role</th>
+        <th>Tac vu</th>
+    </tr>
+    @foreach (var item in Model.Roles)
+    {
+        <tr>
+            <td>
+                @item.Name
+                @foreach (var claim in item.Claims)
+                {
+                    <small>@claim</small>
+                }
+
+            </td>
+            <td>
+                <a class="btn btn-success btn-sm" asp-page="./Edit" asp-route-roleid="@item.Id">Cap nhat</a>
+                <a class="btn btn-primary btn-sm" asp-page="./Details">Thong tin</a>
+                <a class="btn btn-danger btn-sm" asp-page="./Delete" asp-route-roleid="@item.Id">Xoas</a>
+            </td>
+
+        </tr>
+
+    }
+</table>
+
